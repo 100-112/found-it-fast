@@ -527,13 +527,12 @@
                         <input type="text" 
                                id="searchInput" 
                                class="form-control" 
-                               placeholder="Search by title, description, or location"
-                               aria-label="Search items">
+                               placeholder="Search by title, description, or location">
                     </div>
                     <div class="filters">
                         <div class="filter-group">
                             <label for="filterType" class="form-label">Item Type</label>
-                            <select id="filterType" class="form-control" aria-label="Filter by item type">
+                            <select id="filterType" class="form-control">
                                 <option value="all">All Items</option>
                                 <option value="lost">Lost Items</option>
                                 <option value="found">Found Items</option>
@@ -541,7 +540,7 @@
                         </div>
                         <div class="filter-group">
                             <label for="filterCategory" class="form-label">Category</label>
-                            <select id="filterCategory" class="form-control" aria-label="Filter by category">
+                            <select id="filterCategory" class="form-control">
                                 <option value="all">All Categories</option>
                                 <option value="Electronics">Electronics</option>
                                 <option value="Documents">Documents</option>
@@ -552,7 +551,7 @@
                         </div>
                         <div class="filter-group">
                             <label for="sortBy" class="form-label">Sort By</label>
-                            <select id="sortBy" class="form-control" aria-label="Sort items">
+                            <select id="sortBy" class="form-control">
                                 <option value="newest">Newest First</option>
                                 <option value="oldest">Oldest First</option>
                             </select>
@@ -742,7 +741,7 @@
                     <div class="filters">
                         <div class="filter-group">
                             <label for="myPostsFilter" class="form-label">Filter by Type</label>
-                            <select id="myPostsFilter" class="form-control" aria-label="Filter posts by type">
+                            <select id="myPostsFilter" class="form-control">
                                 <option value="all">All Posts</option>
                                 <option value="lost">Lost Items</option>
                                 <option value="found">Found Items</option>
@@ -750,7 +749,7 @@
                         </div>
                         <div class="filter-group">
                             <label for="myPostsSort" class="form-label">Sort By</label>
-                            <select id="myPostsSort" class="form-control" aria-label="Sort posts">
+                            <select id="myPostsSort" class="form-control">
                                 <option value="newest">Newest First</option>
                                 <option value="oldest">Oldest First</option>
                                 <option value="status">By Status</option>
@@ -994,7 +993,7 @@
                             </li>
                             <li class="footer-contact-item">
                                 <span class="footer-icon">📞</span>
-                                <a href="tel:+91551234567" class="footer-link">+1 (555) 123-4567</a>
+                                <a href="tel:+15551234567" class="footer-link">+1 (555) 123-4567</a>
                             </li>
                             <li class="footer-contact-item">
                                 <span class="footer-icon">🌍</span>
@@ -1140,7 +1139,18 @@
                             <span class="sidebar-badge" id="sidebarAdminMessageCount">0</span>
                         </a>
                     </li>
-                
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="admin-settings" class="sidebar-link">
+                            <span class="sidebar-icon">⚙️</span>
+                            <span class="sidebar-label">System Settings</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="admin-activity" class="sidebar-link">
+                            <span class="sidebar-icon">📜</span>
+                            <span class="sidebar-label">Activity Log</span>
+                        </a>
+                    </li>
                     <li role="none" class="sidebar-divider"></li>
                     <li role="none">
                         <button id="sidebarAdminLogout" class="sidebar-link sidebar-logout" role="menuitem">
