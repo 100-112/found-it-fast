@@ -413,24 +413,18 @@ pre code {
 }
 
 .btn--primary {
-  background-color: #21808D;  /* teal shade */
-  color: #FFFFFF;             /* white text - better contrast */
+  background-color: var(--color-primary);      /* ✅ Uses variable */
+  color: var(--color-btn-primary-text);        /* ✅ Uses variable */
   border: none;
 }
 
 .btn--primary:hover {
-  background-color: #1B5E6A;  /* darker shade for hover */
-  color: #FFFFFF;
-}
-
-
-.btn--primary:hover {
-  background-color: #1B5E6A;  /* darker shade for hover */
-  color: #FFFFFF;
+  background-color: var(--color-primary-hover);
+  color: var(--color-btn-primary-text);
 }
 
 .btn--primary:active {
-  background: var(--color-primary-active);
+  background-color: var(--color-primary-active);
 }
 
 .btn--secondary {
