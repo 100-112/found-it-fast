@@ -428,22 +428,6 @@ pre code {
   color: #ffffff !important;
 }
 
-.btn--primary {
-  background: var(--color-primary);
-  color: #ffffff;              /* ✅ WHITE TEXT */
-  border: none;
-}
-
-.btn--primary:hover {
-  background: var(--color-primary-hover);
-  color: #ffffff;              /* ✅ WHITE TEXT (stays) */
-}
-
-.btn--primary:active {
-  background: var(--color-primary-active);
-  color: #ffffff;              /* ✅ WHITE TEXT (stays) */
-}
-
 
 .btn--secondary {
   background: var(--color-secondary);
