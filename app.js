@@ -3128,3 +3128,91 @@ if (document.readyState === 'loading') {
 } else {
   App.init();
 }
+// ============================================
+// KEYBOARD SHORTCUTS HANDLER
+// ============================================
+document.addEventListener('keydown', function(e) {
+  
+  // Ctrl+S - Go to Search
+  if (e.ctrlKey && e.key === 's') {
+    e.preventDefault();
+    const searchInput = document.getElementById('searchInput') || document.querySelector('[data-view="browse"]');
+    if (searchInput) {
+      if (searchInput.tagName === 'INPUT') {
+        searchInput.focus();
+      } else {
+        searchInput.click();
+      }
+    }
+  }
+  
+  // Ctrl+L - Go to Login
+  if (e.ctrlKey && e.key === 'l') {
+    e.preventDefault();
+    const loginBtn = document.querySelector('[data-view="login"]');
+    if (loginBtn) loginBtn.click();
+  }
+  
+  // Ctrl+R - Go to Register
+  if (e.ctrlKey && e.key === 'r') {
+    e.preventDefault();
+    const registerBtn = document.querySelector('[data-view="register"]');
+    if (registerBtn) registerBtn.click();
+  }
+  
+  // Ctrl+H - Go to Home
+  if (e.ctrlKey && e.key === 'h') {
+    e.preventDefault();
+    const homeBtn = document.querySelector('[data-view="landing"]') || document.querySelector('[data-view="dashboard"]');
+    if (homeBtn) homeBtn.click();
+  }
+  
+  // Ctrl+B - Browse Items
+  if (e.ctrlKey && e.key === 'b') {
+    e.preventDefault();
+    const browseBtn = document.querySelector('[data-view="browse"]');
+    if (browseBtn) browseBtn.click();
+  }
+  
+  // Ctrl+P - Go to Profile
+  if (e.ctrlKey && e.key === 'p') {
+    e.preventDefault();
+    const profileBtn = document.querySelector('[data-view="profile"]');
+    if (profileBtn) profileBtn.click();
+  }
+  
+  // Ctrl+M - View Messages
+  if (e.ctrlKey && e.key === 'm') {
+    e.preventDefault();
+    const messagesBtn = document.querySelector('[data-view="messages"]');
+    if (messagesBtn) messagesBtn.click();
+  }
+  
+  // Ctrl+? - Show Help
+  if (e.ctrlKey && e.shiftKey && e.key === '?') {
+    e.preventDefault();
+    const modal = document.getElementById('shortcutsModal');
+    if (modal) modal.style.display = 'block';
+  }
+  
+  // Escape - Close All Modals
+  if (e.key === 'Escape') {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(function(modal) {
+      if (modal.style.display === 'block') {
+        modal.style.display = 'none';
+      }
+    });
+  }
+});
+
+// Close shortcuts modal button
+document.addEventListener('DOMContentLoaded', function() {
+  const closeBtn = document.getElementById('closeShortcutsModal');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      const modal = document.getElementById('shortcutsModal');
+      if (modal) modal.style.display = 'none';
+    });
+  }
+});
