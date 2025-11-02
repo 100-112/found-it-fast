@@ -9,11 +9,22 @@ const App = {
   
   // Initialize application
   init() {
+    console.log('App initializing...');
+    console.log('Current view:', this.currentView);
+    
     this.setupEventListeners();
     this.updateUI();
     this.checkAuth();
     this.setupBackButton();
     this.setupSidebar();
+    
+    console.log('App initialization complete');
+    
+    // Verify critical elements exist
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    console.log('Login form exists:', !!loginForm);
+    console.log('Register form exists:', !!registerForm);
   },
   
   // Check authentication and update UI
@@ -46,14 +57,18 @@ const App = {
       });
     }
     
-    // Navigation
+    // Navigation - ALL elements with data-view attribute
     document.querySelectorAll('[data-view]').forEach(el => {
       el.addEventListener('click', (e) => {
         e.preventDefault();
         const view = e.currentTarget.getAttribute('data-view');
+        console.log('Navigation clicked:', view); // Debug log
         this.showView(view);
       });
     });
+    
+    // Explicit handlers for login and register buttons to ensure they work
+    this.setupLoginRegisterButtons();
     
     // Mobile menu toggle
     const menuToggle = document.getElementById('mobileMenuToggle');
@@ -149,8 +164,49 @@ const App = {
     Validator.setupRealTimeValidation('profilePhone', 'phone');
   },
   
+  // Setup Login and Register Buttons explicitly
+  setupLoginRegisterButtons() {
+    // Find all login buttons/links
+    const loginButtons = document.querySelectorAll('[data-view="login"]');
+    loginButtons.forEach(btn => {
+      // Remove any existing listeners by cloning
+      const newBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(newBtn, btn);
+      
+      // Add fresh event listener
+      newBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Login button clicked'); // Debug
+        this.showView('login');
+      });
+    });
+    
+    // Find all register buttons/links
+    const registerButtons = document.querySelectorAll('[data-view="register"]');
+    registerButtons.forEach(btn => {
+      // Remove any existing listeners by cloning
+      const newBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(newBtn, btn);
+      
+      // Add fresh event listener
+      newBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Register button clicked'); // Debug
+        this.showView('register');
+      });
+    });
+    
+    console.log('Login/Register buttons setup complete');
+    console.log('Login buttons found:', loginButtons.length);
+    console.log('Register buttons found:', registerButtons.length);
+  },
+  
   // Show view and update navigation
   showView(viewName) {
+    console.log('showView called with:', viewName); // Debug
+    
     // Authentication gating for protected views
     const protectedViews = ['dashboard', 'report-lost', 'report-found', 'browse', 'inbox', 'sent', 'compose', 'notifications', 'messages', 'profile'];
     if (protectedViews.includes(viewName) && !Auth.isAuthenticated()) {
@@ -200,6 +256,21 @@ const App = {
           link.classList.add('active');
         }
       });
+      
+      // Clear forms when showing login/register views
+      if (viewName === 'login') {
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+          loginForm.reset();
+          Validator.clearFormErrors('loginForm');
+        }
+      } else if (viewName === 'register') {
+        const registerForm = document.getElementById('registerForm');
+        if (registerForm) {
+          registerForm.reset();
+          Validator.clearFormErrors('registerForm');
+        }
+      }
       
       // Load view-specific data
       this.loadViewData(viewName);
@@ -515,7 +586,12 @@ const App = {
   // Login Form
   setupLoginForm() {
     const form = document.getElementById('loginForm');
-    if (!form) return;
+    if (!form) {
+      console.error('Login form not found!');
+      return;
+    }
+    
+    console.log('Login form setup complete');
     
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -555,7 +631,12 @@ const App = {
   // Register Form
   setupRegisterForm() {
     const form = document.getElementById('registerForm');
-    if (!form) return;
+    if (!form) {
+      console.error('Register form not found!');
+      return;
+    }
+    
+    console.log('Register form setup complete');
     
     form.addEventListener('submit', (e) => {
       e.preventDefault();
