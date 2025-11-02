@@ -47,7 +47,8 @@
   --color-background: var(--color-cream-50);
   --color-surface: var(--color-cream-100);
   --color-text: var(--color-slate-900);
-  --color-text-secondary: var(--color-slate-500);
+ --color-text-secondary: #252525;
+
   --color-primary: var(--color-teal-500);
   --color-primary-hover: var(--color-teal-600);
   --color-primary-active: var(--color-teal-700);
@@ -273,7 +274,8 @@
   --color-background: var(--color-cream-50);
   --color-surface: var(--color-cream-100);
   --color-text: var(--color-slate-900);
-  --color-text-secondary: #5a6b75;  /* Darker version */
+ --color-text-secondary: #252525;
+
   --color-primary: var(--color-teal-500);
   --color-primary-hover: var(--color-teal-600);
   --color-primary-active: var(--color-teal-700);
@@ -787,7 +789,8 @@ select.form-control {
   --color-background: var(--color-cream-50);
   --color-surface: var(--color-cream-100);
   --color-text: var(--color-slate-900);
-  --color-text-secondary: var(--color-slate-500);
+--color-text-secondary: #252525;
+
   --color-primary: var(--color-teal-500);
   --color-primary-hover: var(--color-teal-600);
   --color-primary-active: var(--color-teal-700);
@@ -1323,7 +1326,7 @@ textarea.form-control {
   min-width: 18px;
   height: 18px;
   padding: 2px 5px;
-  font-size: 10px;
+  font-size: 16px;
   line-height: 14px;
 }
 
