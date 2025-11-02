@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Found It Fast - Lost and Found Items Management System">
+    <title>Found It Fast - Lost &amp; Found Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header role="banner" class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <button id="backBtn" class="btn btn--secondary btn--sm back-btn hidden" aria-label="Go back to previous page">
+                    &larr; Back
+                </button>
+                <div class="logo" data-view="landing" style="cursor: pointer;">
+                    <h1>Found It Fast</h1>
+                </div>
+                <div class="header-right">
+                    <button class="mobile-menu-toggle" 
+                            id="mobileMenuToggle" 
+                            aria-label="Toggle navigation menu" 
+                            aria-expanded="false"
+                            aria-controls="main-nav">
+                        <span class="hamburger"></span>
+                    </button>
+                    <button class="sidebar-toggle auth-only hidden" 
+                            id="sidebarToggle" 
+                            aria-label="Toggle sidebar navigation" 
+                            aria-expanded="false"
+                            aria-controls="sidebar">
+                        <span class="sidebar-icon">☰</span>
+                    </button>
+                </div>
+                <nav role="navigation" aria-label="Main navigation" class="main-nav" id="main-nav">
+                    <ul class="nav-list" role="menubar">
+                        <!-- Guest Navigation: Login and Register -->
+                        <li role="none" class="guest-only"><a href="#" role="menuitem" data-view="login" class="nav-link btn btn--secondary">Login</a></li>
+                        <li role="none" class="guest-only"><a href="#" role="menuitem" data-view="register" class="nav-link btn btn--primary">Register</a></li>
+                        
+                        <!-- Authenticated User Navigation: Notification Bell Only -->
+                        <li role="none" class="auth-only user-only hidden">
+                            <a href="#" role="menuitem" data-view="notifications" class="nav-link nav-icon-link" aria-label="View notifications">
+                                <span class="nav-icon">🔔</span>
+                                <span class="badge" id="notificationCount">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Notification Banner -->
+    <div id="notificationBanner" class="notification-banner hidden" role="alert" aria-live="polite">
+        <div class="container">
+            <div class="notification-banner-content">
+                <span class="notification-banner-icon">🔔</span>
+                <div class="notification-banner-text">
+                    <strong id="notificationTitle"></strong>
+                    <p id="notificationMessage"></p>
+                </div>
+                <button id="viewNotificationBtn" class="btn btn--sm btn--primary">View</button>
+                <button id="dismissNotificationBtn" class="btn btn--sm btn--secondary" aria-label="Dismiss notification">&times;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main" class="main-content">
+        
+        <!-- Landing Page -->
+        <section id="landing" class="view active" aria-labelledby="landing-title">
+            <div class="hero">
+                <div class="container">
+                    <h2 id="landing-title" class="hero-title">Lost Something? Found Something?</h2>
+                    <p class="hero-subtitle">Connect with your community to reunite lost items with their owners</p>
+                    <div class="hero-actions">
+                        <button class="btn btn--primary btn--lg" data-view="register" aria-label="Get started by registering">Get Started</button>
+                        <button class="btn btn--outline btn--lg" data-view="browse" aria-label="Browse lost and found items">Browse Items</button>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="features">
+                    <div class="feature-card" style="background-color: var(--color-bg-1);">
+                        <h3>Report Lost Items</h3>
+                        <p>Quickly report items you've lost with detailed descriptions and images</p>
+                    </div>
+                    <div class="feature-card" style="background-color: var(--color-bg-2);">
+                        <h3>Report Found Items</h3>
+                        <p>Help others by posting items you've found in your area</p>
+                    </div>
+                    <div class="feature-card" style="background-color: var(--color-bg-3);">
+                        <h3>Connect Directly</h3>
+                        <p>Message system to coordinate returns safely and efficiently</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Page -->
+        <section id="login" class="view" aria-labelledby="login-title">
+            <div class="container">
+                <div class="form-container">
+                    <div class="card">
+                        <div class="card__body">
+                            <h2 id="login-title">Login to Your Account</h2>
+                            <form id="loginForm" novalidate aria-labelledby="login-title">
+                                <div class="form-group">
+                                    <label for="loginEmail" class="form-label">Email Address *</label>
+                                    <input type="email" 
+                                           id="loginEmail" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="loginEmailError"
+                                           autocomplete="email">
+                                    <span id="loginEmailError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loginPassword" class="form-label">Password *</label>
+                                    <input type="password" 
+                                           id="loginPassword" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="loginPasswordError"
+                                           autocomplete="current-password">
+                                    <span id="loginPasswordError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                                </div>
+                                <div class="form-links">
+                                    <a href="#" data-view="reset-password" class="link">Forgot Password?</a>
+                                    <a href="#" data-view="register" class="link">Don't have an account? Register</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Page -->
+        <section id="register" class="view" aria-labelledby="register-title">
+            <div class="container">
+                <div class="form-container">
+                    <div class="card">
+                        <div class="card__body">
+                            <h2 id="register-title">Create Your Account</h2>
+                            <form id="registerForm" novalidate aria-labelledby="register-title">
+                                <div class="form-group">
+                                    <label for="registerName" class="form-label">Full Name *</label>
+                                    <input type="text" 
+                                           id="registerName" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="registerNameError"
+                                           autocomplete="name">
+                                    <span id="registerNameError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="registerEmail" class="form-label">Email Address *</label>
+                                    <input type="email" 
+                                           id="registerEmail" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="registerEmailError"
+                                           autocomplete="email">
+                                    <span id="registerEmailError" class="error-message" role="alert" aria-live="polite"></span>
+                                    <span id="registerEmailSuccess" class="success-message" role="status" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="registerPhone" class="form-label">Phone Number *</label>
+                                    <input type="tel" 
+                                           id="registerPhone" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="registerPhoneError"
+                                           placeholder="1234567890"
+                                           autocomplete="tel">
+                                    <span id="registerPhoneError" class="error-message" role="alert" aria-live="polite"></span>
+                                    <span id="registerPhoneSuccess" class="success-message" role="status" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="registerPassword" class="form-label">Password *</label>
+                                    <input type="password" 
+                                           id="registerPassword" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="registerPasswordError registerPasswordHelp"
+                                           autocomplete="new-password">
+                                    <span id="registerPasswordHelp" class="help-text">Min 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character</span>
+                                    <span id="registerPasswordError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="registerConfirmPassword" class="form-label">Confirm Password *</label>
+                                    <input type="password" 
+                                           id="registerConfirmPassword" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="registerConfirmPasswordError"
+                                           autocomplete="new-password">
+                                    <span id="registerConfirmPasswordError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn--primary btn--full-width">Register</button>
+                                </div>
+                                <div class="form-links">
+                                    <a href="#" data-view="login" class="link">Already have an account? Login</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reset Password Page -->
+        <section id="reset-password" class="view" aria-labelledby="reset-title">
+            <div class="container">
+                <div class="form-container">
+                    <div class="card">
+                        <div class="card__body">
+                            <h2 id="reset-title">Reset Your Password</h2>
+                            <div id="resetStep1">
+                                <p>Enter your email address and we'll send you an OTP to reset your password.</p>
+                                <form id="resetEmailForm" novalidate>
+                                    <div class="form-group">
+                                        <label for="resetEmail" class="form-label">Email Address *</label>
+                                        <input type="email" 
+                                               id="resetEmail" 
+                                               class="form-control" 
+                                               required 
+                                               aria-required="true"
+                                               aria-describedby="resetEmailError"
+                                               autocomplete="email">
+                                        <span id="resetEmailError" class="error-message" role="alert" aria-live="polite"></span>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn--primary btn--full-width">Send OTP</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="resetStep2" class="hidden">
+                                <p>Enter the OTP sent to your email and your new password.</p>
+                                <form id="resetPasswordForm" novalidate>
+                                    <div class="form-group">
+                                        <label for="resetOTP" class="form-label">OTP Code *</label>
+                                        <input type="text" 
+                                               id="resetOTP" 
+                                               class="form-control" 
+                                               required 
+                                               aria-required="true"
+                                               aria-describedby="resetOTPError otpDisplay"
+                                               maxlength="6">
+                                        <span id="otpDisplay" class="help-text">Your OTP: <strong id="otpValue"></strong></span>
+                                        <span id="resetOTPError" class="error-message" role="alert" aria-live="polite"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="resetNewPassword" class="form-label">New Password *</label>
+                                        <input type="password" 
+                                               id="resetNewPassword" 
+                                               class="form-control" 
+                                               required 
+                                               aria-required="true"
+                                               aria-describedby="resetNewPasswordError"
+                                               autocomplete="new-password">
+                                        <span id="resetNewPasswordError" class="error-message" role="alert" aria-live="polite"></span>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn--primary btn--full-width">Reset Password</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="form-links">
+                                <a href="#" data-view="login" class="link">Back to Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="view" aria-labelledby="dashboard-title">
+            <div class="container">
+                <h2 id="dashboard-title">Dashboard</h2>
+                <div class="dashboard-welcome">
+                    <p>Welcome back, <span id="dashboardUserName"></span>!</p>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="stat-card" style="background-color: var(--color-bg-1);">
+                        <h3 id="myLostCount">0</h3>
+                        <p>My Lost Items</p>
+                    </div>
+                    <div class="stat-card" style="background-color: var(--color-bg-2);">
+                        <h3 id="myFoundCount">0</h3>
+                        <p>My Found Items</p>
+                    </div>
+                    <div class="stat-card" style="background-color: var(--color-bg-3);">
+                        <h3 id="totalMessages">0</h3>
+                        <p>Messages</p>
+                    </div>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="btn btn--primary" data-view="report-lost">Report Lost Item</button>
+                    <button class="btn btn--primary" data-view="report-found">Report Found Item</button>
+                    <button class="btn btn--outline" data-view="browse">Browse All Items</button>
+                </div>
+                <div class="recent-posts">
+                    <h3>Your Recent Posts</h3>
+                    <div id="recentPostsList" role="list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Report Lost Item -->
+        <section id="report-lost" class="view" aria-labelledby="report-lost-title">
+            <div class="container">
+                <div class="form-container">
+                    <div class="card">
+                        <div class="card__body">
+                            <h2 id="report-lost-title">Report Lost Item</h2>
+                            <form id="reportLostForm" novalidate aria-labelledby="report-lost-title">
+                                <div class="form-group">
+                                    <label for="lostTitle" class="form-label">Item Title *</label>
+                                    <input type="text" 
+                                           id="lostTitle" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="lostTitleError">
+                                    <span id="lostTitleError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lostCategory" class="form-label">Category *</label>
+                                    <select id="lostCategory" 
+                                            class="form-control" 
+                                            required 
+                                            aria-required="true"
+                                            aria-describedby="lostCategoryError">
+                                        <option value="">Select a category</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Documents">Documents</option>
+                                        <option value="Personal Items">Personal Items</option>
+                                        <option value="Bags &amp; Accessories">Bags &amp; Accessories</option>
+                                        <option value="Clothing">Clothing</option>
+                                    </select>
+                                    <span id="lostCategoryError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lostDescription" class="form-label">Description *</label>
+                                    <textarea id="lostDescription" 
+                                              class="form-control" 
+                                              rows="4" 
+                                              required 
+                                              aria-required="true"
+                                              aria-describedby="lostDescriptionError"></textarea>
+                                    <span id="lostDescriptionError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lostLocation" class="form-label">Location Where Lost *</label>
+                                    <input type="text" 
+                                           id="lostLocation" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="lostLocationError">
+                                    <span id="lostLocationError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lostDate" class="form-label">Date Lost *</label>
+                                    <input type="date" 
+                                           id="lostDate" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="lostDateError">
+                                    <span id="lostDateError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lostContact" class="form-label">Contact Information *</label>
+                                    <input type="text" 
+                                           id="lostContact" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="lostContactError">
+                                    <span id="lostContactError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lostImage" class="form-label">Item Image (optional)</label>
+                                    <input type="file" 
+                                           id="lostImage" 
+                                           class="form-control" 
+                                           accept="image/*"
+                                           aria-describedby="lostImageHelp">
+                                    <span id="lostImageHelp" class="help-text">Upload an image of the item (JPG, PNG, GIF)</span>
+                                    <div id="lostImagePreview" class="image-preview hidden" role="img" aria-label="Image preview"></div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn--primary">Submit Report</button>
+                                    <button type="button" class="btn btn--secondary" data-view="dashboard">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Report Found Item -->
+        <section id="report-found" class="view" aria-labelledby="report-found-title">
+            <div class="container">
+                <div class="form-container">
+                    <div class="card">
+                        <div class="card__body">
+                            <h2 id="report-found-title">Report Found Item</h2>
+                            <form id="reportFoundForm" novalidate aria-labelledby="report-found-title">
+                                <div class="form-group">
+                                    <label for="foundTitle" class="form-label">Item Title *</label>
+                                    <input type="text" 
+                                           id="foundTitle" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="foundTitleError">
+                                    <span id="foundTitleError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="foundCategory" class="form-label">Category *</label>
+                                    <select id="foundCategory" 
+                                            class="form-control" 
+                                            required 
+                                            aria-required="true"
+                                            aria-describedby="foundCategoryError">
+                                        <option value="">Select a category</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Documents">Documents</option>
+                                        <option value="Personal Items">Personal Items</option>
+                                        <option value="Bags &amp; Accessories">Bags &amp; Accessories</option>
+                                        <option value="Clothing">Clothing</option>
+                                    </select>
+                                    <span id="foundCategoryError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="foundDescription" class="form-label">Description *</label>
+                                    <textarea id="foundDescription" 
+                                              class="form-control" 
+                                              rows="4" 
+                                              required 
+                                              aria-required="true"
+                                              aria-describedby="foundDescriptionError"></textarea>
+                                    <span id="foundDescriptionError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="foundLocation" class="form-label">Location Where Found *</label>
+                                    <input type="text" 
+                                           id="foundLocation" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="foundLocationError">
+                                    <span id="foundLocationError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="foundDate" class="form-label">Date Found *</label>
+                                    <input type="date" 
+                                           id="foundDate" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="foundDateError">
+                                    <span id="foundDateError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="foundContact" class="form-label">Contact Information *</label>
+                                    <input type="text" 
+                                           id="foundContact" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="foundContactError">
+                                    <span id="foundContactError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="foundImage" class="form-label">Item Image (optional)</label>
+                                    <input type="file" 
+                                           id="foundImage" 
+                                           class="form-control" 
+                                           accept="image/*"
+                                           aria-describedby="foundImageHelp">
+                                    <span id="foundImageHelp" class="help-text">Upload an image of the item (JPG, PNG, GIF)</span>
+                                    <div id="foundImagePreview" class="image-preview hidden" role="img" aria-label="Image preview"></div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn--primary">Submit Report</button>
+                                    <button type="button" class="btn btn--secondary" data-view="dashboard">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Browse Items -->
+        <section id="browse" class="view" aria-labelledby="browse-title">
+            <div class="container">
+                <h2 id="browse-title">Browse Lost &amp; Found Items</h2>
+                <div class="search-filters">
+                    <div class="search-bar">
+                        <label for="searchInput" class="form-label">Search Items</label>
+                        <input type="text" 
+                               id="searchInput" 
+                               class="form-control" 
+                               placeholder="Search by title, description, or location"
+                               aria-label="Search items">
+                    </div>
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="filterType" class="form-label">Item Type</label>
+                            <select id="filterType" class="form-control" aria-label="Filter by item type">
+                                <option value="all">All Items</option>
+                                <option value="lost">Lost Items</option>
+                                <option value="found">Found Items</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterCategory" class="form-label">Category</label>
+                            <select id="filterCategory" class="form-control" aria-label="Filter by category">
+                                <option value="all">All Categories</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Documents">Documents</option>
+                                <option value="Personal Items">Personal Items</option>
+                                <option value="Bags &amp; Accessories">Bags &amp; Accessories</option>
+                                <option value="Clothing">Clothing</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="sortBy" class="form-label">Sort By</label>
+                            <select id="sortBy" class="form-control" aria-label="Sort items">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="itemsGrid" class="items-grid" role="list" aria-live="polite" aria-label="Items list"></div>
+                <div id="noResults" class="no-results hidden" role="status">
+                    <p>No items found matching your search criteria.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Item Details -->
+        <section id="item-details" class="view" aria-labelledby="item-details-title">
+            <div class="container">
+                <button class="btn btn--secondary mb-8" data-view="browse" aria-label="Back to browse items">&larr; Back to Browse</button>
+                <div class="card">
+                    <div class="card__body">
+                        <div class="item-details-content">
+                            <div class="item-image-section">
+                                <div id="itemDetailsImage" class="item-details-image" role="img" aria-label="Item image"></div>
+                            </div>
+                            <div class="item-info-section">
+                                <h2 id="item-details-title"></h2>
+                                <div class="item-meta">
+                                    <span class="status" id="itemDetailsType"></span>
+                                    <span class="status status--info" id="itemDetailsCategory"></span>
+                                </div>
+                                <div class="item-description">
+                                    <h3>Description</h3>
+                                    <p id="itemDetailsDescription"></p>
+                                </div>
+                                <div class="item-location">
+                                    <h3>Location</h3>
+                                    <p id="itemDetailsLocation"></p>
+                                </div>
+                                <div class="item-date">
+                                    <h3>Date</h3>
+                                    <p id="itemDetailsDate"></p>
+                                </div>
+                                <div class="item-contact">
+                                    <h3>Contact Information</h3>
+                                    <p id="itemDetailsContact"></p>
+                                </div>
+                                <div class="item-actions">
+                                    <button id="contactOwnerBtn" class="btn btn--primary">Contact Owner</button>
+                                    <button id="reportUserBtn" class="btn btn--error" style="margin-left: 8px;">Report User</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notifications -->
+        <section id="notifications" class="view" aria-labelledby="notifications-title">
+            <div class="container">
+                <h2 id="notifications-title">Notifications &amp; Matches</h2>
+                <div id="notificationsList" role="list" aria-label="Notifications list"></div>
+                
+                <h3 style="margin-top: 2rem;">Matched Items</h3>
+                <div id="matchedItemsList" role="list" aria-label="Matched items list"></div>
+            </div>
+        </section>
+
+        <!-- Inbox -->
+        <section id="inbox" class="view" aria-labelledby="inbox-title">
+            <div class="container">
+                <div class="messages-header">
+                    <h2 id="inbox-title">Inbox</h2>
+                    <div class="messages-tabs">
+                        <button class="btn btn--outline active" data-message-view="inbox">Inbox</button>
+                        <button class="btn btn--outline" data-message-view="sent">Sent</button>
+                        <button class="btn btn--primary" data-view="compose">Compose</button>
+                    </div>
+                </div>
+                <div id="inboxList" class="messages-list" role="list" aria-label="Inbox messages"></div>
+            </div>
+        </section>
+
+        <!-- Sent Messages -->
+        <section id="sent" class="view" aria-labelledby="sent-title">
+            <div class="container">
+                <div class="messages-header">
+                    <h2 id="sent-title">Sent Messages</h2>
+                    <div class="messages-tabs">
+                        <button class="btn btn--outline" data-message-view="inbox">Inbox</button>
+                        <button class="btn btn--outline active" data-message-view="sent">Sent</button>
+                        <button class="btn btn--primary" data-view="compose">Compose</button>
+                    </div>
+                </div>
+                <div id="sentList" class="messages-list" role="list" aria-label="Sent messages"></div>
+            </div>
+        </section>
+
+        <!-- Compose Message -->
+        <section id="compose" class="view" aria-labelledby="compose-title">
+            <div class="container">
+                <div class="form-container">
+                    <div class="card">
+                        <div class="card__body">
+                            <h2 id="compose-title">Compose New Message</h2>
+                            <form id="composeForm" novalidate>
+                                <div class="form-group">
+                                    <label for="composeRecipient" class="form-label">To (User Email) *</label>
+                                    <input type="email" 
+                                           id="composeRecipient" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="composeRecipientError">
+                                    <span id="composeRecipientError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="composeSubject" class="form-label">Subject *</label>
+                                    <input type="text" 
+                                           id="composeSubject" 
+                                           class="form-control" 
+                                           required 
+                                           aria-required="true"
+                                           aria-describedby="composeSubjectError">
+                                    <span id="composeSubjectError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="composeMessage" class="form-label">Message *</label>
+                                    <textarea id="composeMessage" 
+                                              class="form-control" 
+                                              rows="6" 
+                                              required 
+                                              aria-required="true"
+                                              aria-describedby="composeMessageError"></textarea>
+                                    <span id="composeMessageError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn--primary">Send Message</button>
+                                    <button type="button" class="btn btn--secondary" data-message-view="inbox">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Messages (Old - Keep for backward compatibility) -->
+        <section id="messages" class="view" aria-labelledby="messages-title">
+            <div class="container">
+                <h2 id="messages-title">Messages</h2>
+                <div class="messages-container">
+                    <div class="messages-sidebar">
+                        <h3>Conversations</h3>
+                        <div id="conversationsList" role="list" aria-label="Conversations list"></div>
+                    </div>
+                    <div class="messages-content">
+                        <div id="messageThread" class="message-thread">
+                            <p class="text-center">Select a conversation to view messages</p>
+                        </div>
+                        <div id="messageReply" class="message-reply-form hidden">
+                            <form id="replyMessageForm" aria-label="Reply to message">
+                                <div class="form-group">
+                                    <label for="replyMessage" class="form-label">Your Reply</label>
+                                    <textarea id="replyMessage" 
+                                              class="form-control" 
+                                              rows="3" 
+                                              required 
+                                              aria-required="true"
+                                              aria-describedby="replyMessageError"></textarea>
+                                    <span id="replyMessageError" class="error-message" role="alert" aria-live="polite"></span>
+                                </div>
+                                <button type="submit" class="btn btn--primary">Send Reply</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Posts -->
+        <section id="my-posts" class="view" aria-labelledby="my-posts-title">
+            <div class="container">
+                <h2 id="my-posts-title">My Posts</h2>
+                
+                <!-- Filter and Sort Options -->
+                <div class="search-filters">
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="myPostsFilter" class="form-label">Filter by Type</label>
+                            <select id="myPostsFilter" class="form-control" aria-label="Filter posts by type">
+                                <option value="all">All Posts</option>
+                                <option value="lost">Lost Items</option>
+                                <option value="found">Found Items</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="myPostsSort" class="form-label">Sort By</label>
+                            <select id="myPostsSort" class="form-control" aria-label="Sort posts">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="status">By Status</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Posts List -->
+                <div id="myPostsList" class="my-posts-grid" role="list" aria-live="polite"></div>
+                
+                <!-- Empty State -->
+                <div id="myPostsEmpty" class="hidden" style="text-align: center; padding: 3rem; background: var(--color-bg-2); border-radius: var(--radius-lg); margin-top: 2rem;">
+                    <h3>You haven't posted any items yet</h3>
+                    <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">Click Report Lost Item or Report Found Item to get started!</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn btn--primary" data-view="report-lost">Report Lost Item</button>
+                        <button class="btn btn--primary" data-view="report-found">Report Found Item</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile -->
+        <section id="profile" class="view" aria-labelledby="profile-title">
+            <div class="container">
+                <h2 id="profile-title">My Profile</h2>
+                <div class="card">
+                    <div class="card__body">
+                        <form id="profileForm" novalidate aria-labelledby="profile-title">
+                            <div class="form-group">
+                                <label for="profileName" class="form-label">Full Name *</label>
+                                <input type="text" 
+                                       id="profileName" 
+                                       class="form-control" 
+                                       required 
+                                       aria-required="true"
+                                       aria-describedby="profileNameError">
+                                <span id="profileNameError" class="error-message" role="alert" aria-live="polite"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileEmail" class="form-label">Email Address</label>
+                                <input type="email" 
+                                       id="profileEmail" 
+                                       class="form-control" 
+                                       disabled 
+                                       aria-describedby="profileEmailHelp">
+                                <span id="profileEmailHelp" class="help-text">Email cannot be changed</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="profilePhone" class="form-label">Phone Number *</label>
+                                <input type="tel" 
+                                       id="profilePhone" 
+                                       class="form-control" 
+                                       required 
+                                       aria-required="true"
+                                       aria-describedby="profilePhoneError">
+                                <span id="profilePhoneError" class="error-message" role="alert" aria-live="polite"></span>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn--primary">Update Profile</button>
+                            </div>
+                        </form>
+                        <hr>
+                        <h3>My Posts</h3>
+                        <div id="userPostsList" role="list" aria-label="User posts list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard -->
+        <section id="admin-dashboard" class="view" aria-labelledby="admin-dashboard-title">
+            <div class="container">
+                <h2 id="admin-dashboard-title">Admin Dashboard</h2>
+                <!-- Overview -->
+                <div id="admin-overview" class="admin-section active">
+                    <h3>System Overview</h3>
+                    <div class="dashboard-stats">
+                        <div class="stat-card" style="background-color: var(--color-bg-1);">
+                            <h3 id="adminTotalUsers">0</h3>
+                            <p>Total Users</p>
+                        </div>
+                        <div class="stat-card" style="background-color: var(--color-bg-4);">
+                            <h3 id="adminReportedUsers">0</h3>
+                            <p>Reported Users</p>
+                        </div>
+                        <div class="stat-card" style="background-color: var(--color-bg-6);">
+                            <h3 id="adminReportedItems">0</h3>
+                            <p>Reported Items</p>
+                        </div>
+                        <div class="stat-card" style="background-color: var(--color-bg-3);">
+                            <h3 id="adminActivePosts">0</h3>
+                            <p>Active Posts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin User Management -->
+        <section id="admin-users" class="view" aria-labelledby="admin-users-title">
+            <div class="container">
+                <h2 id="admin-users-title">User Management</h2>
+                <div class="table-container">
+                    <table class="data-table" role="table">
+                        <thead>
+                            <tr role="row">
+                                <th role="columnheader">Name</th>
+                                <th role="columnheader">Email</th>
+                                <th role="columnheader">Phone</th>
+                                <th role="columnheader">Role</th>
+                                <th role="columnheader">Status</th>
+                                <th role="columnheader">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminUsersTable" role="rowgroup">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Post Management -->
+        <section id="admin-posts" class="view" aria-labelledby="admin-posts-title">
+            <div class="container">
+                <h2 id="admin-posts-title">Post Management</h2>
+                <div class="table-container">
+                    <table class="data-table" role="table">
+                        <thead>
+                            <tr role="row">
+                                <th role="columnheader">Title</th>
+                                <th role="columnheader">Type</th>
+                                <th role="columnheader">Category</th>
+                                <th role="columnheader">User</th>
+                                <th role="columnheader">Created</th>
+                                <th role="columnheader">Status</th>
+                                <th role="columnheader">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminPostsTable" role="rowgroup">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Category Management -->
+        <section id="admin-categories" class="view" aria-labelledby="admin-categories-title">
+            <div class="container">
+                <h2 id="admin-categories-title">Category Management</h2>
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Add New Category</h3>
+                        <form id="addCategoryForm" class="inline-form">
+                            <div class="form-group" style="flex: 1;">
+                                <label for="newCategoryName" class="form-label">Category Name</label>
+                                <input type="text" id="newCategoryName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">&nbsp;</label>
+                                <button type="submit" class="btn btn--primary">Add Category</button>
+                            </div>
+                        </form>
+                        <h3>Existing Categories</h3>
+                        <div id="categoriesList" role="list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Settings -->
+        <section id="admin-settings" class="view" aria-labelledby="admin-settings-title">
+            <div class="container">
+                <h2 id="admin-settings-title">System Settings</h2>
+                <div class="card">
+                    <div class="card__body">
+                        <p>System settings and configuration options will be available here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Reported Users -->
+        <section id="admin-reported-users" class="view" aria-labelledby="admin-reported-users-title">
+            <div class="container">
+                <h2 id="admin-reported-users-title">Reported Users</h2>
+                <div class="table-container">
+                    <table class="data-table" role="table">
+                        <thead>
+                            <tr role="row">
+                                <th role="columnheader">User Name</th>
+                                <th role="columnheader">User Email</th>
+                                <th role="columnheader">Post Title</th>
+                                <th role="columnheader">Reason</th>
+                                <th role="columnheader">Reported By</th>
+                                <th role="columnheader">Date</th>
+                                <th role="columnheader">Status</th>
+                                <th role="columnheader">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminReportedUsersTable" role="rowgroup">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Activity Log -->
+        <section id="admin-activity" class="view" aria-labelledby="admin-activity-title">
+            <div class="container">
+                <h2 id="admin-activity-title">Activity Log</h2>
+                <div class="card">
+                    <div class="card__body">
+                        <p>Activity logs and audit trail will be displayed here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo" class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- About Us Section -->
+                    <div class="footer-column">
+                        <h3 class="footer-heading">About Found It Fast</h3>
+                        <p class="footer-text">Found It Fast is your trusted community platform for reuniting lost items with their owners. Since our launch, we've helped thousands of people recover their precious belongings through a simple, effective, and community-driven approach. We're committed to making the world a little bit better by connecting people and restoring peace of mind.</p>
+                    </div>
+                    
+                    <!-- Contact Section -->
+                    <div class="footer-column">
+                        <h3 class="footer-heading">Contact Information</h3>
+                        <ul class="footer-contact">
+                            <li class="footer-contact-item">
+                                <span class="footer-icon">✉️</span>
+                                <a href="mailto:contact@founditfast.com" class="footer-link">contact@founditfast.com</a>
+                            </li>
+                            <li class="footer-contact-item">
+                                <span class="footer-icon">📞</span>
+                                <a href="tel:+15551234567" class="footer-link">+1 (555) 123-4567</a>
+                            </li>
+                            <li class="footer-contact-item">
+                                <span class="footer-icon">🌍</span>
+                                <span class="footer-text">Connecting communities worldwide</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p class="footer-copyright">&copy; 2025 Found It Fast. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Right Sidebar -->
+    <aside id="sidebar" class="sidebar" role="complementary" aria-label="Sidebar navigation">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <div class="sidebar-user-info auth-only">
+                    <div class="sidebar-avatar">👤</div>
+                    <div class="sidebar-user-details">
+                        <strong id="sidebarUserName">User</strong>
+                        <span id="sidebarUserEmail" class="sidebar-user-email">user@email.com</span>
+                    </div>
+                </div>
+                <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">&times;</button>
+            </div>
+            
+            <!-- User Sidebar Menu -->
+            <nav class="sidebar-nav user-only auth-only hidden" aria-label="User navigation">
+                <ul class="sidebar-menu" role="menu">
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="dashboard" class="sidebar-link">
+                            <span class="sidebar-icon">🏠</span>
+                            <span class="sidebar-label">Dashboard</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="report-lost" class="sidebar-link">
+                            <span class="sidebar-icon">🔍</span>
+                            <span class="sidebar-label">Report Lost Item</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="report-found" class="sidebar-link">
+                            <span class="sidebar-icon">🎁</span>
+                            <span class="sidebar-label">Report Found Item</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="browse" class="sidebar-link">
+                            <span class="sidebar-icon">📋</span>
+                            <span class="sidebar-label">Browse Items</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="inbox" class="sidebar-link">
+                            <span class="sidebar-icon">✉️</span>
+                            <span class="sidebar-label">Messages</span>
+                            <span class="sidebar-badge" id="sidebarMessageCount">0</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="my-posts" class="sidebar-link">
+                            <span class="sidebar-icon">📄</span>
+                            <span class="sidebar-label">My Posts</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="profile" class="sidebar-link">
+                            <span class="sidebar-icon">👤</span>
+                            <span class="sidebar-label">My Profile</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="notifications" class="sidebar-link">
+                            <span class="sidebar-icon">🔗</span>
+                            <span class="sidebar-label">Matched Items</span>
+                            <span class="sidebar-badge" id="sidebarNotifCount">0</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="compose" class="sidebar-link">
+                            <span class="sidebar-icon">📞</span>
+                            <span class="sidebar-label">Contact Admin</span>
+                        </a>
+                    </li>
+                    <li role="none" class="sidebar-divider"></li>
+                    <li role="none">
+                        <button id="sidebarLogout" class="sidebar-link sidebar-logout" role="menuitem">
+                            <span class="sidebar-icon">🚪</span>
+                            <span class="sidebar-label">Logout</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Admin Sidebar Menu -->
+            <nav class="sidebar-nav admin-only hidden" aria-label="Admin navigation">
+                <ul class="sidebar-menu" role="menu">
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="admin-dashboard" class="sidebar-link">
+                            <span class="sidebar-icon">📊</span>
+                            <span class="sidebar-label">Dashboard</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="admin-users" class="sidebar-link">
+                            <span class="sidebar-icon">👥</span>
+                            <span class="sidebar-label">User Management</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="admin-posts" class="sidebar-link">
+                            <span class="sidebar-icon">📝</span>
+                            <span class="sidebar-label">Post Management</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="admin-categories" class="sidebar-link">
+                            <span class="sidebar-icon">🏷️</span>
+                            <span class="sidebar-label">Category Management</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="admin-reported-users" class="sidebar-link">
+                            <span class="sidebar-icon">⚠️</span>
+                            <span class="sidebar-label">Reported Users</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" data-view="inbox" class="sidebar-link">
+                            <span class="sidebar-icon">✉️</span>
+                            <span class="sidebar-label">Messages</span>
+                            <span class="sidebar-badge" id="sidebarAdminMessageCount">0</span>
+                        </a>
+                    </li>
+                
+                    <li role="none" class="sidebar-divider"></li>
+                    <li role="none">
+                        <button id="sidebarAdminLogout" class="sidebar-link sidebar-logout" role="menuitem">
+                            <span class="sidebar-icon">🚪</span>
+                            <span class="sidebar-label">Logout</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+    <!-- Report Item Modal -->
+    <div id="reportItemModal" class="modal" role="dialog" aria-labelledby="reportItemModalTitle" aria-modal="true" hidden>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="reportItemModalTitle">Report Item</h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Post:</strong> <span id="reportItemTitle"></span></p>
+                <form id="reportItemForm" novalidate>
+                    <div class="form-group">
+                        <label for="reportItemReason" class="form-label">Reason *</label>
+                        <select id="reportItemReason" class="form-control" required aria-required="true">
+                            <option value="">Select a reason</option>
+                            <option value="Inappropriate">Inappropriate</option>
+                            <option value="Spam">Spam</option>
+                            <option value="Scam">Scam</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span id="reportItemReasonError" class="error-message" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reportItemNotes" class="form-label">Additional Notes</label>
+                        <textarea id="reportItemNotes" class="form-control" rows="4" aria-describedby="reportItemNotesHelp"></textarea>
+                        <span id="reportItemNotesHelp" class="help-text">Provide any additional details about why you're reporting this item</span>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary">Submit Report</button>
+                        <button type="button" class="btn btn--secondary modal-close">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report User Modal -->
+    <div id="reportUserModal" class="modal" role="dialog" aria-labelledby="reportUserModalTitle" aria-modal="true" hidden>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="reportUserModalTitle">Report User</h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>User:</strong> <span id="reportUserName"></span></p>
+                <p><strong>Post:</strong> <span id="reportUserPostTitle"></span></p>
+                <form id="reportUserForm" novalidate>
+                    <div class="form-group">
+                        <label for="reportUserReason" class="form-label">Reason *</label>
+                        <select id="reportUserReason" class="form-control" required aria-required="true">
+                            <option value="">Select a reason</option>
+                            <option value="Fake Account">Fake Account</option>
+                            <option value="Spam">Spam</option>
+                            <option value="Inappropriate Content">Inappropriate Content</option>
+                            <option value="Harassment">Harassment</option>
+                            <option value="Scam">Scam</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span id="reportUserReasonError" class="error-message" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reportUserNotes" class="form-label">Additional Notes</label>
+                        <textarea id="reportUserNotes" class="form-control" rows="4" aria-describedby="reportUserNotesHelp"></textarea>
+                        <span id="reportUserNotesHelp" class="help-text">Provide any additional details about why you're reporting this user</span>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary">Submit Report</button>
+                        <button type="button" class="btn btn--secondary modal-close">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Post Modal -->
+    <div id="editPostModal" class="modal" role="dialog" aria-labelledby="editPostModalTitle" aria-modal="true" hidden>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="editPostModalTitle">Edit Post</h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editPostForm" novalidate>
+                    <div class="form-group">
+                        <label for="editPostTitle" class="form-label">Item Title *</label>
+                        <input type="text" id="editPostTitle" class="form-control" required aria-required="true">
+                        <span id="editPostTitleError" class="error-message" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPostCategory" class="form-label">Category *</label>
+                        <select id="editPostCategory" class="form-control" required aria-required="true">
+                            <option value="">Select a category</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Documents">Documents</option>
+                            <option value="Personal Items">Personal Items</option>
+                            <option value="Bags &amp; Accessories">Bags &amp; Accessories</option>
+                            <option value="Clothing">Clothing</option>
+                        </select>
+                        <span id="editPostCategoryError" class="error-message" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPostDescription" class="form-label">Description *</label>
+                        <textarea id="editPostDescription" class="form-control" rows="4" required aria-required="true"></textarea>
+                        <span id="editPostDescriptionError" class="error-message" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPostLocation" class="form-label">Location *</label>
+                        <input type="text" id="editPostLocation" class="form-control" required aria-required="true">
+                        <span id="editPostLocationError" class="error-message" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPostContact" class="form-label">Contact Information *</label>
+                        <input type="text" id="editPostContact" class="form-control" required aria-required="true">
+                        <span id="editPostContactError" class="error-message" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary">Save Changes</button>
+                        <button type="button" class="btn btn--secondary modal-close">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Contact -->
+    <div id="contactModal" class="modal" role="dialog" aria-labelledby="contactModalTitle" aria-modal="true" hidden>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="contactModalTitle">Send Message</h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="contactForm" novalidate>
+                    <div class="form-group">
+                        <label for="contactSubject" class="form-label">Subject *</label>
+                        <input type="text" 
+                               id="contactSubject" 
+                               class="form-control" 
+                               required 
+                               aria-required="true"
+                               aria-describedby="contactSubjectError">
+                        <span id="contactSubjectError" class="error-message" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage" class="form-label">Message *</label>
+                        <textarea id="contactMessage" 
+                                  class="form-control" 
+                                  rows="4" 
+                                  required 
+                                  aria-required="true"
+                                  aria-describedby="contactMessageError"></textarea>
+                        <span id="contactMessageError" class="error-message" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary">Send Message</button>
+                        <button type="button" class="btn btn--secondary modal-close">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="validation.js"></script>
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
