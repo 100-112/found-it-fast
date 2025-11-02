@@ -411,21 +411,39 @@ pre code {
   outline: none;
   box-shadow: var(--focus-ring);
 }
+/* When element has BOTH nav-link AND btn--primary classes */
+.nav-link.btn--primary {
+  color: #ffffff !important;
+}
+
+.nav-link.btn--primary:hover {
+  color: #ffffff !important;
+}
+
+.nav-link.btn--primary:active {
+  color: #ffffff !important;
+}
+
+.nav-link.btn--primary:focus {
+  color: #ffffff !important;
+}
 
 .btn--primary {
-  background-color: var(--color-primary);      /* ✅ Uses variable */
-  color: var(--color-btn-primary-text);        /* ✅ Uses variable */
+  background: var(--color-primary);
+  color: #ffffff;              /* ✅ WHITE TEXT */
   border: none;
 }
 
 .btn--primary:hover {
-  background-color: var(--color-primary-hover);
-  color: var(--color-btn-primary-text);
+  background: var(--color-primary-hover);
+  color: #ffffff;              /* ✅ WHITE TEXT (stays) */
 }
 
 .btn--primary:active {
-  background-color: var(--color-primary-active);
+  background: var(--color-primary-active);
+  color: #ffffff;              /* ✅ WHITE TEXT (stays) */
 }
+
 
 .btn--secondary {
   background: var(--color-secondary);
