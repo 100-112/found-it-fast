@@ -413,12 +413,20 @@ pre code {
 }
 
 .btn--primary {
-  background: var(--color-primary);
-  color: var(--color-btn-primary-text);
+  background-color: #21808D;  /* teal shade */
+  color: #FFFFFF;             /* white text - better contrast */
+  border: none;
 }
 
 .btn--primary:hover {
-  background: var(--color-primary-hover);
+  background-color: #1B5E6A;  /* darker shade for hover */
+  color: #FFFFFF;
+}
+
+
+.btn--primary:hover {
+  background-color: #1B5E6A;  /* darker shade for hover */
+  color: #FFFFFF;
 }
 
 .btn--primary:active {
