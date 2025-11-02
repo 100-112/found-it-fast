@@ -1013,9 +1013,10 @@ a:hover {
 }
 
 .btn--primary {
-  background: var(--color-primary);
-  color: var(--color-btn-primary-text);
+    background: var(--color-primary);    /* #21808D */
+    color: #fff !important;              /* or explicitly set to white */
 }
+
 
 .btn--primary:hover {
   background: var(--color-primary-hover);
